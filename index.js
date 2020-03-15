@@ -34,18 +34,24 @@ function TeslaGen3WCAccessory(log, config) {
   this.host = config["host"];
   
   this.handleTempService = new Service.TemperatureSensor(this.name + " Handle Temp", "handle_temp");
-  
-  this.handleTempService
+    this.handleTempService
     .getCharacteristic(Characteristic.CurrentTemperature)
     .on('get', this.getHandleTemp.bind(this));
 
-    this.pcbTempService = new Service.TemperatureSensor(this.name + " Handle Temp", "pcb_temp");
-    
-  
-    this.pcbTempService
-      .getCharacteristic(Characteristic.CurrentTemperature)
-      .on('get', this.getPcbTemp.bind(this));  
+  this.pcbTempService = new Service.TemperatureSensor(this.name + " PCB Temp", "pcb_temp");
+  this.pcbTempService
+    .getCharacteristic(Characteristic.CurrentTemperature)
+    .on('get', this.getPcbTemp.bind(this));  
 
+  this.carConnectedService = new Service.OccupancySensor(this.name + " Vehicle Connected", "vehicle_connected");
+  this.carConnectedService
+    .getCharacteristic(characteristic.OccupancyDetected)
+    .on('get', this.getCarConnected.bind(this));
+
+    this.contactorClosedService = new Service.OccupancySensor(this.name + " Contactor Closed", "contactor_closed");
+    this.contactorClosedService
+      .getCharacteristic(characteristic.OccupancyDetected)
+      .on('get', this.getContactorClosed.bind(this));  
 
 }
 
@@ -81,6 +87,46 @@ TeslaGen3WCAccessory.prototype.getPcbTemp = function(callback) {
       var handle_temp = json.handle_temp_c; // 
       this.log("Handle Temp: %d", handle_temp);
       callback(null, handle_temp); // success
+    }
+    else {
+      this.log("Error getting state (status code %s): %s", response.statusCode, err);
+      callback(err);
+    }
+  }.bind(this));
+}
+
+TeslaGen3WCAccessory.prototype.getCarConnected = function(callback) {
+  this.log("Getting current state...");
+  
+  request.get({
+    url: "http://" + this.host + "/api/1/vitals"
+  }, function(err, response, body) {
+    
+    if (!err && response.statusCode == 200) {
+      var json = JSON.parse(body);
+      var value = json.vehicle_connected; // 
+      this.log("Car Connected: %s", value);
+      callback(null, value); // success
+    }
+    else {
+      this.log("Error getting state (status code %s): %s", response.statusCode, err);
+      callback(err);
+    }
+  }.bind(this));
+}
+
+TeslaGen3WCAccessory.prototype.getContactorClosed = function(callback) {
+  this.log("Getting current state...");
+  
+  request.get({
+    url: "http://" + this.host + "/api/1/vitals"
+  }, function(err, response, body) {
+    
+    if (!err && response.statusCode == 200) {
+      var json = JSON.parse(body);
+      var value = json.contactor_closed; // 
+      this.log("Car Connected: %s", value);
+      callback(null, value); // success
     }
     else {
       this.log("Error getting state (status code %s): %s", response.statusCode, err);
