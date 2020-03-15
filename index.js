@@ -45,12 +45,12 @@ function TeslaGen3WCAccessory(log, config) {
 
   this.carConnectedService = new Service.OccupancySensor(this.name + " Vehicle Connected", "vehicle_connected");
   this.carConnectedService
-    .getCharacteristic(characteristic.OccupancyDetected)
+    .getCharacteristic(Characteristic.OccupancyDetected)
     .on('get', this.getCarConnected.bind(this));
 
     this.contactorClosedService = new Service.OccupancySensor(this.name + " Contactor Closed", "contactor_closed");
     this.contactorClosedService
-      .getCharacteristic(characteristic.OccupancyDetected)
+      .getCharacteristic(Characteristic.OccupancyDetected)
       .on('get', this.getContactorClosed.bind(this));  
 
 }

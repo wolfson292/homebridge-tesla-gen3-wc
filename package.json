@@ -1,6 +1,6 @@
 {
   "name": "homebridge-tesla-gen3-wc",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Tesla Gen3 Wall Connector support for Homebridge",
   "private": true,
   "license": "GPLv3",
