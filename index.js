@@ -8,6 +8,7 @@ module.exports = function(homebridge) {
   homebridge.registerAccessory("homebridge-tesla-gen3-wc", "TeslaGen3WC", TeslaGen3WCAccessory);
 }
 
+//Vitals JSON Response
 // {
 //   "contactor_closed": false,
 //   "vehicle_connected": true,
@@ -33,24 +34,24 @@ function TeslaGen3WCAccessory(log, config) {
   this.name = config["name"];
   this.host = config["host"];
   
-  this.handleTempService = new Service.TemperatureSensor(this.name + " Handle Temp", "handle_temp");
+  this.handleTempService = new Service.TemperatureSensor("Handle Temp", "handle_temp");
     this.handleTempService
     .getCharacteristic(Characteristic.CurrentTemperature)
     .on('get', this.getHandleTemp.bind(this));
 
-  this.pcbTempService = new Service.TemperatureSensor(this.name + " PCB Temp", "pcb_temp");
+  this.pcbTempService = new Service.TemperatureSensor("PCB Temp", "pcb_temp");
   this.pcbTempService
     .getCharacteristic(Characteristic.CurrentTemperature)
     .on('get', this.getPcbTemp.bind(this));  
 
-  this.carConnectedService = new Service.OccupancySensor(this.name + " Vehicle Connected", "vehicle_connected");
+  this.carConnectedService = new Service.Switch("Vehicle Connected", "vehicle_connected");
   this.carConnectedService
-    .getCharacteristic(Characteristic.OccupancyDetected)
+    .getCharacteristic(Characteristic.On)
     .on('get', this.getCarConnected.bind(this));
 
-    this.contactorClosedService = new Service.OccupancySensor(this.name + " Contactor Closed", "contactor_closed");
+    this.contactorClosedService = new Service.Switch("Contactor Closed", "contactor_closed");
     this.contactorClosedService
-      .getCharacteristic(Characteristic.OccupancyDetected)
+      .getCharacteristic(Characteristic.On)
       .on('get', this.getContactorClosed.bind(this));  
 
 }
