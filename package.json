@@ -1,0 +1,22 @@
+{
+  "name": "homebridge-tesla-gen3-wc",
+  "version": "0.0.0",
+  "description": "Tesla Gen3 Wall Connector support for Homebridge",
+  "private": true,
+  "license": "GPLv3",
+  "keywords": [
+    "homebridge-plugin"
+  ],
+  "engines": {
+    "node": ">=0.12.0",
+    "homebridge": ">=0.2.0"
+  },
+  "scripts": {
+    "dev": "rollup -c -w",
+    "build": "rollup -c",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "request": "^2.65.0"
+  }
+}
