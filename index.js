@@ -56,7 +56,7 @@ function TeslaGen3WCAccessory(log, config) {
 }
 
 TeslaGen3WCAccessory.prototype.getHandleTemp = function(callback) {
-  this.log("Getting current state...");
+  this.log("Getting Handle Temp current state...");
   
   request.get({
     url: "http://" + this.host + "/api/1/vitals"
@@ -76,7 +76,7 @@ TeslaGen3WCAccessory.prototype.getHandleTemp = function(callback) {
 }
 
 TeslaGen3WCAccessory.prototype.getPcbTemp = function(callback) {
-  this.log("Getting current state...");
+  this.log("Getting PCB Temp current state...");
   
   request.get({
     url: "http://" + this.host + "/api/1/vitals"
@@ -96,7 +96,7 @@ TeslaGen3WCAccessory.prototype.getPcbTemp = function(callback) {
 }
 
 TeslaGen3WCAccessory.prototype.getCarConnected = function(callback) {
-  this.log("Getting current state...");
+  this.log("Getting CarConnected current state...");
   
   request.get({
     url: "http://" + this.host + "/api/1/vitals"
@@ -116,7 +116,7 @@ TeslaGen3WCAccessory.prototype.getCarConnected = function(callback) {
 }
 
 TeslaGen3WCAccessory.prototype.getContactorClosed = function(callback) {
-  this.log("Getting current state...");
+  this.log("Getting ContactorClosed current state...");
   
   request.get({
     url: "http://" + this.host + "/api/1/vitals"
