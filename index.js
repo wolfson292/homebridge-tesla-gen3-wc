@@ -33,13 +33,14 @@ function TeslaGen3WCAccessory(log, config) {
   this.name = config["name"];
   this.host = config["host"];
   
-  this.handleTempService = new Service.TemperatureSensor(this.name + " Handle Temp");
+  this.handleTempService = new Service.TemperatureSensor(this.name + " Handle Temp", "handle_temp");
   
   this.handleTempService
     .getCharacteristic(Characteristic.CurrentTemperature)
     .on('get', this.getHandleTemp.bind(this));
 
-    this.pcbTempService = new Service.TemperatureSensor(this.name + " Handle Temp");
+    this.pcbTempService = new Service.TemperatureSensor(this.name + " Handle Temp", "pcb_temp");
+    
   
     this.pcbTempService
       .getCharacteristic(Characteristic.CurrentTemperature)
