@@ -136,5 +136,5 @@ TeslaGen3WCAccessory.prototype.getContactorClosed = function(callback) {
 }
 
 TeslaGen3WCAccessory.prototype.getServices = function() {
-  return [this.handleTempService, this.pcbTempService];
+  return [this.handleTempService, this.pcbTempService, this.carConnectedService, this.contactorClosedService];
 }
